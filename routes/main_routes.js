@@ -23,6 +23,7 @@ function get_unique_jobs(req, res) {
 
 function get_unique_colors(req, res) {
     console.log('get_unique_colors');
+
     USERCLASS.find().distinct('favorite_colors').then(function (favorite_colors) {
         console.log(favorite_colors);
         res.json(favorite_colors);
@@ -37,10 +38,11 @@ router.delete('/api/v5/delete?:_id', do_delete);
 
 function do_read(req, res) {
     console.log('reading all data');
-    USERCLASS.find().then(function (results) {
-        console.log(results);
-        res.json(results);
-    });
+    USERCLASS.find()
+        .then(function (results) {
+            console.log(results);
+            res.json(results);
+        });
 }
 
 function do_create(req, res) {
@@ -56,12 +58,13 @@ function do_create(req, res) {
     }
     var user = new USERCLASS(data);
 
-    user.save().then(function (results) {
-        console.log(results);
-        res.json({
-            message: 'backend created user!'
+    user.save()
+        .then(function (results) {
+            console.log(results);
+            res.json({
+                message: 'backend created user!'
+            });
         });
-    });
 }
 
 function do_update(req, res) {
@@ -80,7 +83,7 @@ function do_update(req, res) {
     USERCLASS.findByIdAndUpdate(req.body._id, update).then(function (results) {
         console.log(results);
         res.json({
-            message: 'backend created user!'
+            message: 'backend updated user!'
         });
     });
 }
